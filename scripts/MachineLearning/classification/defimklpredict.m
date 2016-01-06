@@ -2,7 +2,7 @@ function [predicted_label, accuracy, decision_values] = ...
     defimklpredict(testing_label_vector, testing_instance_matrix, model)
 %defimklpredict - Classifies test data using the DeFIMKL algorithm.
 %
-% Usage: model = defimklpredict(testing_label_vector,
+% Usage: [predicted_label, accuracy, decision_values] = defimklpredict(testing_label_vector,
 % testing_instance_matrix, model)
 %
 % Inputs:
@@ -20,7 +20,7 @@ function [predicted_label, accuracy, decision_values] = ...
 %                      using the fuzzy Choquet integral.
 %
 % Example: 
-%    model = defimklpredict( ytest, Xtest, model )
+%    [predicted_label, accuracy, decision_values] = defimklpredict( ytest, Xtest, model )
 %
 % Other m-files required: FMFI_ChoquetIntegralv2.m
 % MEX-files required: svmtrain.mex (<a href="matlab: 
@@ -44,7 +44,7 @@ Xtest = testing_instance_matrix;
 FM = model.FM;
 svmmodel = model.svmmodels;
 
-number_of_kernels = length( model );
+number_of_kernels = length( svmmodel );
 
 for k = 1:number_of_kernels
     [~,~,dvtest(:,k)] = svmpredict(ytest,Xtest,svmmodel{k},'-q');
