@@ -22,7 +22,7 @@ function [ X, y ] = gimmedata( name, binary )
 %    Cite the UCI Dataset if data from the following set is used in a
 %    publication:
 %    { 'sonar','dermatology','wine','ionosphere','ecoli','glass','spectfheart',
-%      'bupa','wdbc','haberman','pima','australian'}
+%      'bupa','wdbc','haberman','pima','australian','covtype'}
 %
 %    UCI BIBTEX CITATION:
 %    @misc{Lichman:2013 ,
@@ -35,7 +35,7 @@ function [ X, y ] = gimmedata( name, binary )
 %
 %    Cite the KEEL Dataset if data from the following set is used in a
 %    publication:
-%    { '' }
+%    { 'saheart' }
 %
 % Author: Anthony Pinar
 % Department of Electrical and Computer Engineering
@@ -46,7 +46,8 @@ function [ X, y ] = gimmedata( name, binary )
 % January 2016
 
 all_names = {'sonar','dermatology','wine','ionosphere','ecoli','glass',...
-    'spectfheart','bupa','wdbc','haberman','pima','australian','saheart'};
+    'spectfheart','bupa','wdbc','haberman','pima','australian','saheart'...
+    'covtype'};
 
 % Set default dataset & binary = 1
 if nargin < 1; name = 'sonar'; end;
@@ -154,5 +155,16 @@ switch name
         X = data(:,1:(end-1));
         y = data(:,end);
         y(y==0) = -1;
+        
+    case 'covtype'
+        
+        data = load('covtype.data');
+        X = data(:,1:(end-1));
+        y = data(:,end);
+        if binary
+            y(y==1) = -1; y(y==3) = -1; y(y>4) = -1;
+            y(y==2) = 1; y(y==4) = 1;
+        end
+        
         
 end
