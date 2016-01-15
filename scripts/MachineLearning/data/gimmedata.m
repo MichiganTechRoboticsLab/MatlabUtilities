@@ -21,7 +21,8 @@ function [ X, y ] = gimmedata( name, binary )
 %
 %    Cite the UCI Dataset if data from the following set is used in a
 %    publication:
-%    { 'sonar','dermatology','wine','ionosphere','ecoli','glass' }
+%    { 'sonar','dermatology','wine','ionosphere','ecoli','glass','spectfheart',
+%      'bupa','wdbc','haberman','pima','australian'}
 %
 %    UCI BIBTEX CITATION:
 %    @misc{Lichman:2013 ,
@@ -32,6 +33,10 @@ function [ X, y ] = gimmedata( name, binary )
 %    institution = "University of California, Irvine, School of Information
 %                   and Computer Sciences" } 
 %
+%    Cite the KEEL Dataset if data from the following set is used in a
+%    publication:
+%    { '' }
+%
 % Author: Anthony Pinar
 % Department of Electrical and Computer Engineering
 % Michigan Technological University
@@ -40,7 +45,8 @@ function [ X, y ] = gimmedata( name, binary )
 % Website: www.csl.mtu.edu/~ajpinar
 % January 2016
 
-all_names = {'sonar','dermatology','wine','ionosphere','ecoli','glass' };
+all_names = {'sonar','dermatology','wine','ionosphere','ecoli','glass',...
+    'spectfheart','bupa','wdbc','haberman','pima','australian','saheart'};
 
 % Set default dataset & binary = 1
 if nargin < 1; name = 'sonar'; end;
@@ -102,5 +108,51 @@ switch name
         if binary
             y(y<4) = -1; y(y>3) = 1;
         end
+        
+    case 'spectfheart'
+        
+        data = load('spectfheart.data');
+        X = data(:,1:(end-1));
+        y = data(:,end);
+        y(y==0) = -1;
+        
+    case 'bupa'
+        
+        data = load('bupa.data');
+        X = data(:,1:(end-1));
+        y = data(:,end);
+        y(y==2) = -1;
+        
+    case 'wdbc'
+        
+        data = load('wdbc.data');
+        X = data(:,1:(end-1));
+        y = data(:,end);
+        
+    case 'haberman'
+        
+        data = load('haberman.data');
+        X = data(:,1:(end-1));
+        y = data(:,end);
+        
+    case 'pima'
+        
+        data = load('pima.data');
+        X = data(:,1:(end-1));
+        y = data(:,end);
+        
+    case 'australian'
+        
+        data = load('australian.data');
+        X = data(:,1:(end-1));
+        y = data(:,end);
+        y(y==0) = -1;
+        
+    case 'saheart'
+        
+        data = load('saheart.data');
+        X = data(:,1:(end-1));
+        y = data(:,end);
+        y(y==0) = -1;
         
 end
